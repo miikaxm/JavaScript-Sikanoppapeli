@@ -42,3 +42,8 @@ button {
 form label, select, input{
   margin: 10px;
 }
+
+form input{
+  border: 2px solid gray;
+  border-radius: 7px;
+}

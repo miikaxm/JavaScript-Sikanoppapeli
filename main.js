@@ -16,7 +16,7 @@ let playersIds = []
 let listMade = false
 let turn = 0
 let pointGoal = null
-let doublesInRow = 0
+let doublesInRow = 1
 
 function startGame(){
 
@@ -158,6 +158,7 @@ function rollDice2(){
     } else if (rolledNumber1 == rolledNumber2){
         if (doublesInRow >= 3){
             playersIds[turn].points = 0
+            doublesInRow = 1
             document.getElementById("currentScore").innerText = "Tämän hetkiset pisteet: " +  playersIds[turn].points
             nextTurn();
         }
