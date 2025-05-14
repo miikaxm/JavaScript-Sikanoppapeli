@@ -7,27 +7,55 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Sikanoppapeli</h1>
-    <form style="align-items: start;">
-        <label for="amount">Pelaajien määrä: </label>
-        <input id="playerAmount" name="amount" type="text">
-        <input id="btnAmount" type="submit" value="Aseta pelaajamäärä">
-        <label for="names">Pelaajien nimet: </label>
-        <input id="PlayerNames" name="names" type="text">
-        <input id="btnNames" type="submit" value="Aseta nimi">
-    </form>
-    <div class="pisteet" id="pisteet">
-        <h1>Pelaajien pisteet</h1>
 
+    <!-- Aloitus asetus boksi -->
+    <div id="startScreen" class="card">
+        <h1 style="padding-top: 10px;">Sikanoppapeli</h1>
+        <form>
+            <label for="pelaajienMäärä">Pelaajien määrä:</label><br>
+            <input id="pelaajienMäärä" type="text"><br>
+
+            <label for="noppaMäärä">Noppien Määrä:</label><br>
+            <select name="noppaMäärä" id="noppaMäärä">
+                <option value="1">1 Noppa</option>
+                <option value="2">2 Noppaa</option>
+            </select>
+        </form>
+        <button id="btnAloita">Aloita!</button>
     </div>
-    <div class="diceArea" style="display: inline-block;">
-        <h1>Pelaaja 1</h1>
-        <img id="kuva-1" src="img/dice_1.png" alt="">
+
+
+    <!-- Yhden nopan alue -->
+    <div hidden id="oneDiceArea" class="card">
+        <h1 style="padding-top: 10px;">Heitä noppaa painamalla sitä</h1>
+        <h2 id="currentTurn">Pelaajan vuoro: Pelaaja 1</h2>
+        <img id="dice" style="width: 200px;" src="img/dice_1.png" alt="Photo of dice">
+        <h3 id="currentScore">Tämän hetkiset pisteet: 0</h3>
+        <br><button id="btnStopRolling">Lopeta heittäminen</button>
     </div>
-    <!-- <div class="diceArea" style="display: inline-block;">
-        <h1>Pelaaja 2</h1>
-        <img id="kuva-2" src="img/dice_1.png" alt="">
-    </div> -->
+
+    <!-- Kahden nopan alue -->
+     <div hidden id="twoDiceArea" class="card">
+        <h1 style="padding-top: 10px;">Heitä noppaa painamalla sitä</h1>
+        <h2>Pelaajan vuoro:</h2>
+        <img id="dice" style="width: 200px;" src="img/dice_1.png" alt="Photo of dice">
+        <img id="dice" style="width: 200px;" src="img/dice_1.png" alt="Photo of dice">
+        <h3>Tämän hetkiset pisteet: 0</h3>
+        <br><button>Lopeta heittäminen</button>
+     </div>
+
+    <!-- Pisteet -->
+    <div hidden id="pointsArea" class="card">
+      <h1 style="padding-top: 10px;">Pelaajien pisteet</h1>
+    </div>
+
+    <!-- Voitto näyttö -->
+    <div hidden id="winScreen" class="card" style="height: 200px;">
+        <h1 id="voittajaTeksti" style="padding-top: 75px;"></h1>
+        <button id="btnRetry">Pelaa uudelleen?</button>
+    </div>
+     
+
     <script src="main.js"></script>
 </body>
 </html>
