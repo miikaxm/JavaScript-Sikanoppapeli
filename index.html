@@ -15,11 +15,16 @@
             <label for="pelaajienMäärä">Pelaajien määrä:</label><br>
             <input id="pelaajienMäärä" type="text"><br>
 
+            <label for="pisteTavoite">Ratkaiseva pistemäärä:</label><br>
+            <input id="pisteTavoite" type="text"><br>
+
             <label for="noppaMäärä">Noppien Määrä:</label><br>
             <select name="noppaMäärä" id="noppaMäärä">
                 <option value="1">1 Noppa</option>
                 <option value="2">2 Noppaa</option>
             </select>
+
+
         </form>
         <button id="btnAloita">Aloita!</button>
     </div>
@@ -37,11 +42,11 @@
     <!-- Kahden nopan alue -->
      <div hidden id="twoDiceArea" class="card">
         <h1 style="padding-top: 10px;">Heitä noppaa painamalla sitä</h1>
-        <h2>Pelaajan vuoro:</h2>
-        <img id="dice" style="width: 200px;" src="img/dice_1.png" alt="Photo of dice">
-        <img id="dice" style="width: 200px;" src="img/dice_1.png" alt="Photo of dice">
-        <h3>Tämän hetkiset pisteet: 0</h3>
-        <br><button>Lopeta heittäminen</button>
+        <h2 id="currentTurn">Pelaajan vuoro:</h2>
+        <img id="two-dice-1" style="width: 200px;" src="img/dice_1.png" alt="Photo of dice">
+        <img id="two-dice-2" style="width: 200px;" src="img/dice_1.png" alt="Photo of dice">
+        <h3 id="currentScore">Tämän hetkiset pisteet: 0</h3>
+        <br><button id="mode2btnStopRolling">Lopeta heittäminen</button>
      </div>
 
     <!-- Pisteet -->

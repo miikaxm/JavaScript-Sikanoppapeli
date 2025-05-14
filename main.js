@@ -3,17 +3,27 @@ document.getElementById("btnAloita").addEventListener("click", startGame)
 // Yhden nopan pelimuodon nopan heitto
 document.getElementById("dice").addEventListener("click", rollDice)
 
+// Kahden nopan pelimuodon nopan heitto
+document.getElementById("two-dice-1").addEventListener("click", rollDice2)
+document.getElementById("two-dice-2").addEventListener("click", rollDice2)
+
+document.getElementById("btnStopRolling").addEventListener("click", savePoints)
+document.getElementById("mode2btnStopRolling").addEventListener("click", savePoints)
+
 let dices = null
 let players = null
 let playersIds = []
 let listMade = false
 let turn = 0
+let pointGoal = null
+let doublesInRow = 0
 
 function startGame(){
 
     // Asetetaan pelaaja määrä ja noppa määrä
     players = parseInt(document.getElementById("pelaajienMäärä").value)
     dices = parseInt(document.getElementById("noppaMäärä").value)
+    pointGoal = parseInt(document.getElementById("pisteTavoite").value)
 
     // Tarkistetaan onko pelaaja määrä kahden ja viiden välissä
     if (players < 2 || players > 5) {
@@ -30,6 +40,11 @@ function startGame(){
         document.getElementById("startScreen").hidden = true;
         document.getElementById("twoDiceArea").hidden = false;
         document.getElementById("pointsArea").hidden = false;
+
+        document.getElementById("currentTurn").setAttribute("id", "EIKÄYTÖSSÄ1")
+        document.getElementById("currentScore").setAttribute("id", "EIKÄYTÖSSÄ2")
+        document.getElementById("btnStopRolling").setAttribute("id", "EIKÄYTÖSSÄ3")
+
     }
     addPlayers()
     updatePointsList()
@@ -79,7 +94,6 @@ function rollDice(){
     if (rolledNumber != 1){
         playersIds[turn].points += rolledNumber
         document.getElementById("currentScore").innerText = "Tämän hetkiset pisteet: " +  playersIds[turn].points
-        document.getElementById("btnStopRolling").addEventListener("click", savePoints)
     } else {
         // Jos luku on nolla kierroksen pisteet nollataan ja siirrytään seuraavaan kierrokseen
         playersIds[turn].points = 0
@@ -112,11 +126,51 @@ function nextTurn(){
 function checkWin(){
     // Tarkistaa onko kukaan pelaajista voittanut peliä, jos on se ilmoitetaan ja peli päättyy.
     playersIds.forEach(players => {
-        if (players.savedPoints >= 100){
-            document.getElementById("oneDiceArea").hidden = true;
-            document.getElementById("pointsArea").hidden = true;
-            document.getElementById("winScreen").hidden = false;
-            document.getElementById("voittajaTeksti").innerText = "Pelin on voittanut " +players.name;
+        if (players.savedPoints >= pointGoal){
+            if (dices == 1) {
+                document.getElementById("oneDiceArea").hidden = true;
+                document.getElementById("pointsArea").hidden = true;
+                document.getElementById("winScreen").hidden = false;
+                document.getElementById("voittajaTeksti").innerText = "Pelin on voittanut " +players.name;
+            } else {
+                document.getElementById("twoDiceArea").hidden = true;
+                document.getElementById("pointsArea").hidden = true;
+                document.getElementById("winScreen").hidden = false;
+                document.getElementById("voittajaTeksti").innerText = "Pelin on voittanut " +players.name;
+            }
+
         }
     });
+}
+
+
+// Funktiot 2 nopan pelimuodolle
+function rollDice2(){
+    const rolledNumber1 = getRandomNumber()
+    const rolledNumber2 = getRandomNumber()
+    rolledImage1 = "img/dice_" + rolledNumber1 + ".png"
+    rolledImage2 = "img/dice_" + rolledNumber2 + ".png"
+    document.getElementById("two-dice-1").setAttribute("src", rolledImage1)
+    document.getElementById("two-dice-2").setAttribute("src", rolledImage2)
+    if (rolledNumber1 == 1 && rolledNumber2 == 1) {
+        playersIds[turn].points += 25
+        document.getElementById("currentScore").innerText = "Tämän hetkiset pisteet: " +  playersIds[turn].points
+    } else if (rolledNumber1 == rolledNumber2){
+        if (doublesInRow >= 3){
+            playersIds[turn].points = 0
+            document.getElementById("currentScore").innerText = "Tämän hetkiset pisteet: " +  playersIds[turn].points
+            nextTurn();
+        }
+        doublesInRow += 1
+        playersIds[turn].points += (rolledNumber1+rolledNumber2)*2
+        document.getElementById("currentScore").innerText = "Tämän hetkiset pisteet: " +  playersIds[turn].points
+    } else if ((rolledNumber1 == 1 && rolledNumber2 != 1) || (rolledNumber2 == 1 && rolledNumber1 != 1)) {
+        // Jos vain toisella nopalla tulee ykkönen niin kierroksen pisteet nollataan ja vuoro vaihtuu
+        playersIds[turn].points = 0
+        document.getElementById("currentScore").innerText = "Tämän hetkiset pisteet: " +  playersIds[turn].points
+        nextTurn();
+    } else {
+        playersIds[turn].points += rolledNumber1+rolledNumber2
+        document.getElementById("currentScore").innerText = "Tämän hetkiset pisteet: " +  playersIds[turn].points
+    }
 }
