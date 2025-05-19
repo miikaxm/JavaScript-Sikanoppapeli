@@ -9,6 +9,7 @@ document.getElementById("two-dice-2").addEventListener("click", rollDice2)
 
 document.getElementById("btnStopRolling").addEventListener("click", savePoints)
 document.getElementById("mode2btnStopRolling").addEventListener("click", savePoints)
+document.getElementById("btnRetry").addEventListener("click", restart)
 
 let dices = null
 let players = null
@@ -174,4 +175,8 @@ function rollDice2(){
         playersIds[turn].points += rolledNumber1+rolledNumber2
         document.getElementById("currentScore").innerText = "Tämän hetkiset pisteet: " +  playersIds[turn].points
     }
+}
+
+function restart(){
+    location.reload()
 }
