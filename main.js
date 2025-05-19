@@ -22,9 +22,22 @@ let doublesInRow = 1
 function startGame(){
 
     // Asetetaan pelaaja määrä ja noppa määrä
-    players = parseInt(document.getElementById("pelaajienMäärä").value)
+    if (document.getElementById("pelaajienMäärä").value != "") {
+        players = parseInt(document.getElementById("pelaajienMäärä").value)
+    } else {
+        alert("Syötäthän pelaaja määrän")
+        return
+    }
+    
+    if (document.getElementById("pisteTavoite").value != "") {
+        pointGoal = parseInt(document.getElementById("pisteTavoite").value)
+    } else {
+        alert("Syötäthän piste määrän")
+        return
+    }
+    
     dices = parseInt(document.getElementById("noppaMäärä").value)
-    pointGoal = parseInt(document.getElementById("pisteTavoite").value)
+    
 
     // Tarkistetaan onko pelaaja määrä kahden ja viiden välissä
     if (players < 2 || players > 5) {
