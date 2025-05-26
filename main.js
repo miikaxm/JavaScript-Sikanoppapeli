@@ -167,15 +167,19 @@ function rollDice2(){
     document.getElementById("two-dice-1").setAttribute("src", rolledImage1)
     document.getElementById("two-dice-2").setAttribute("src", rolledImage2)
     if (rolledNumber1 == 1 && rolledNumber2 == 1) {
+        // Jos pelaaja saa kaksi ykköstä hän saa 25 pistettä
         playersIds[turn].points += 25
         document.getElementById("currentScore").innerText = "Tämän hetkiset pisteet: " +  playersIds[turn].points
     } else if (rolledNumber1 == rolledNumber2){
+        // Jos pelaaja saa tuplat eli kaksi samaa silmälukua
         if (doublesInRow >= 3){
+            // Tarkistaa onko tuplat heitetty kolme kertaa putkeen
             playersIds[turn].points = 0
             doublesInRow = 1
             document.getElementById("currentScore").innerText = "Tämän hetkiset pisteet: " +  playersIds[turn].points
             nextTurn();
         }
+        // Jos ei niin pelaaja saa pisteitä tuplasti silmäluvuista
         doublesInRow += 1
         playersIds[turn].points += (rolledNumber1+rolledNumber2)*2
         document.getElementById("currentScore").innerText = "Tämän hetkiset pisteet: " +  playersIds[turn].points
@@ -185,6 +189,7 @@ function rollDice2(){
         document.getElementById("currentScore").innerText = "Tämän hetkiset pisteet: " +  playersIds[turn].points
         nextTurn();
     } else {
+        // Jos pelaaja heittää normaalit luvut esim 2 ja 5
         playersIds[turn].points += rolledNumber1+rolledNumber2
         document.getElementById("currentScore").innerText = "Tämän hetkiset pisteet: " +  playersIds[turn].points
     }
